@@ -28,6 +28,7 @@ export const HistoryPage: React.FC = () => {
         {orders.length > 0 ? (
           orders.map((order) => (
             <div
+              onClick={() => console.log(order)}
               key={order.id}
               className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden"
             >
@@ -61,7 +62,7 @@ export const HistoryPage: React.FC = () => {
                         {item.quantity}x
                       </span>
                       <span className="text-gray-800 font-semibold">
-                        {item.product.name}
+                        {item.productName}
                       </span>
                     </div>
                     <span className="text-gray-500">

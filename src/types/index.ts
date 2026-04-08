@@ -39,7 +39,9 @@ export interface CartResponseDto {
 
 export interface OrderItem {
   id: number;
-  product: Product;
+  productId: number;
+  productName: string;
+
   quantity: number;
   priceAtPurchase: number;
 }
@@ -47,14 +49,14 @@ export interface OrderItemDto {
   id: number;
   productId: number;
   productName: string;
-  priceAtPurchase: number; 
+  priceAtPurchase: number;
   quantity: number;
 }
 export interface OrderResponseDto {
   id: number;
   totalPrice: number;
   status: string;
-  createdAt: string; 
+  createdAt: string;
   items: OrderItemDto[];
 }
 
@@ -67,12 +69,10 @@ export interface Order {
 }
 
 export interface MyTokenPayload {
-  sub: string; 
-  exp: number; 
+  sub: string;
+  exp: number;
   iat: number;
   role: string;
-
-  
 }
 
 export interface CreateProductDto {

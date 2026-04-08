@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../api/productService"; 
-import { addToCart } from "../api/cartService"; 
-import type { Product } from "../types"; 
+import { getProducts } from "../api/productService";
+import { addToCart } from "../api/cartService";
+import type { Product } from "../types";
 import { ProductCard } from "../components/ProductCard";
 import toast from "react-hot-toast";
 
 export const CatalogPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
 
   useEffect(() => {
     getProducts()
@@ -20,8 +19,8 @@ export const CatalogPage: React.FC = () => {
         console.error("Ошибка загрузки товаров:", err);
         setLoading(false);
       });
+    console.log(products);
   }, []);
-
 
   const handleAddToCart = async (productId: number) => {
     try {
@@ -62,7 +61,7 @@ export const CatalogPage: React.FC = () => {
 
       {/* Сетка товаров */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.length > 0 ? (
+        {products?.length > 0 ? (
           products.map((product) =>
             product.stockQuantity <= 0 ? (
               ""

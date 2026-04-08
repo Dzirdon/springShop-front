@@ -31,7 +31,14 @@ const App: React.FC = () => {
       return false;
     }
   });
-  const [username, setUsername] = useState<string>("Покупатель");
+  const [username, setUsername] = useState<string>(() => {
+    if (!token) return "Покупатель";
+    try {
+      return jwtDecode<MyTokenPayload>(token).sub;
+    } catch {
+      return "Покупатель";
+    }
+  });
 
   const handleLoginSuccess = (newToken: string) => {
     localStorage.setItem("token", newToken);
@@ -50,7 +57,6 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50 flex flex-col">
-       
         {isLoggedIn && (
           <Navbar
             isLoggedIn={isLoggedIn}
@@ -69,9 +75,7 @@ const App: React.FC = () => {
               <>
                 <Route
                   path="/login"
-                  element={
-                    <LoginPage onLoginSuccess={() => setIsLoggedIn(true)} />
-                  }
+                  element={<LoginPage onLoginSuccess={handleLoginSuccess} />}
                 />
                 <Route path="*" element={<Navigate to="/login" replace />} />
               </>
